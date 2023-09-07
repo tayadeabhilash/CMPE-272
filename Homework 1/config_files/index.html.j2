@@ -1,0 +1,8 @@
+<html>
+    <head>
+        <title>Welcome to the Ansible Assignment</title>
+    </head>
+    <body>
+        <h1>Hello World from SJSU-{% if ansible_hostname == 'VM2' %}{{ vm2_display }}{% else %}{{ vm3_display }}{% endif %}</h1>
+    </body>
+</html>

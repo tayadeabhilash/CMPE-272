@@ -1,0 +1,8 @@
+---
+app_user: "abhilash"
+http_host: "sjsuwelcome"
+http_conf: "sjsuwelcome.conf"
+http_port: "8080"
+disable_default: true
+vm2_display: 1
+vm3_display: 2
