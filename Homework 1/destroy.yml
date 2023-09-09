@@ -1,0 +1,28 @@
+
+---
+- hosts: all
+  become: true
+  vars_files:
+    - variables.yml
+    
+  tasks:
+    - name: "Stop apache service"		# Stop apache service
+      service: 
+        name: apache2
+        state: stopped
+    
+    - name: Delete apache conf		# Delete apache config
+      file:
+        path: "/etc/apache2/sites-available/{{ http_conf }}"
+        state: absent
+
+    - name: "Uninstall apache"		# Uninstall apache2 and deps
+      apt:
+        name: apache2
+        autoremove: yes
+        state: absent
+        
+    - name: Delete document root		# Delete document root directory
+      file:
+        path: "/var/www/{{ http_host }}"
+        state: absent

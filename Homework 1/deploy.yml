@@ -1,0 +1,36 @@
+
+---
+- hosts: all
+  become: true
+  vars_files:
+    - variables.yml		# Import variables
+
+  tasks:
+    - name: Install Apache		# Install apache2
+      apt: name=apache2 state=latest
+
+    - name: Create document root		# Create document root directory
+      file:
+        path: "/var/www/{{ http_host }}"
+        state: directory
+
+    - name: Copy index test page		# Copy Index html
+      template:
+        src: "config_files/index.html.j2"
+        dest: "/var/www/{{ http_host }}/index.html"
+
+    - name: Set up Apache virtualhost		# Copy Apache config file
+      template:
+        src: "config_files/apache.conf.j2"
+        dest: "/etc/apache2/sites-available/{{ http_conf }}"
+
+    - name: Enable new site		# Enable new config
+      shell: /usr/sbin/a2ensite {{ http_conf }}
+      notify: Reload Apache
+
+  handlers:
+    - name: Reload Apache
+      service:
+        name: apache2
+        state: reloaded
+
