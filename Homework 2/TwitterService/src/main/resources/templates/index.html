@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Twitter Service</title>
+    <link rel="stylesheet" type="text/css" href="/CSS/main.css">
+</head>
+<body>
+<header>
+    <h1>TheIterators Twitter Service</h1>
+</header>
+<main>
+
+        <!-- Abhilash`s Frontend -->
+
+    <!-- POST service -->
+    <h2>Create a Tweet</h2>
+    <form action="/tweet" method="post">
+        <label for="tweetText">Tweet Text:</label>
+        <input type="text" id="tweetText" name="tweetText" required>
+        <button type="submit">Create/Tweet</button>
+    </form>
+
+    <!-- DELETE service -->
+    <h2>Delete a Tweet</h2>
+    <form action="/delete" method="post">
+        <label for="tweetIdToDelete">Tweet ID to Delete:</label>
+        <input type="text" id="tweetIdToDelete" name="tweetIdToDelete" required>
+        <button type="submit">Delete Tweet</button>
+    </form>
+
+</main>
+</body>
+</html>
