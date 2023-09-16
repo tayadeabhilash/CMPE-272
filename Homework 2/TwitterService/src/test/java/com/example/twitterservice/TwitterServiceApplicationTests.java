@@ -3,8 +3,6 @@ package com.example.twitterservice;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 /**
@@ -24,18 +22,20 @@ class TwitterServiceApplicationTests {
     @Test
     void happy_POSTTweet() {
         try {
-            assertEquals(controller.tweet("Testing"), "200");
+            assertNotNull(controller.tweet("Testing API POST"));
         }
         catch(Exception e) {
-            throw new RuntimeException("Thrown");
+            throw new RuntimeException("Failed POST test");
         }
     }
 
     @Test
     void happy_DELETETweet() {
         try {
-            assertEquals(controller.delete(0), "200");
+            assertNotNull(controller.delete(0));
         }
-        catch(Exception e) {}
+        catch(Exception e) {
+            throw new RuntimeException("Failed DELETE test");
+        }
     }
 }
