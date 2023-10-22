@@ -2,8 +2,8 @@ const Discord = require('discord.js');
 const client = new Discord.Client();
 const AWS = require('aws-sdk');
 
-// Your Discord bot token
-const botToken = 'YOUR_BOT_TOKEN_HERE'; // Replace with your bot token
+
+const botToken = process.env.DISCORD_BOT_TOKEN;
 
 // AWS Lambda setup
 const lambda = new AWS.Lambda();

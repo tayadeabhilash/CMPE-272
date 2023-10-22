@@ -20,7 +20,6 @@ provider:
   environment:
     DISCORD_BOT_TOKEN: 'NEW-TOKEN-HERE' # NOTE: update this with your discord bot token
 
-
   # iamRoleStatements:
   #     -  Effect: "Allow"
   #        Action:
@@ -61,3 +60,4 @@ resources:
       Type: AWS::S3::Bucket
       Properties:
         BucketName: CMPE-272-doge-1
+
