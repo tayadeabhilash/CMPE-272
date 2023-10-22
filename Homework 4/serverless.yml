@@ -11,14 +11,16 @@
 #
 # Happy Coding!
 
-service: iopipe-workshop-doge-1 # NOTE: update this with your service name
+service: CMPE272-hw4-doge-1 # NOTE: update this with your service name
 
 provider:
   name: aws
-  region: us-east-1
+  region: us-west-1
   runtime: nodejs4.3
   environment:
-    DISCORD_BOT_TOKEN: 'MTE2NTUxMjEyODQxMzgyNzE0Mg.Gm4p03.Yhj9D6lVUdPpRm4X5-vPr9a1EaVjPGRBzJLgGM'
+    DISCORD_BOT_TOKEN: 'NEW-TOKEN-HERE' # NOTE: update this with your discord bot token
+
+
   # iamRoleStatements:
   #     -  Effect: "Allow"
   #        Action:
@@ -39,13 +41,9 @@ provider:
 
 functions:
   create:
-    handler: doge.create
+    handler: bot.handler
     memorySize: 128
     timeout: 30
-    events:
-      - http:
-          path: doge/create
-          method: get
 
 #   you can add any of the following events
 #   events:
@@ -62,4 +60,4 @@ resources:
     newResource:
       Type: AWS::S3::Bucket
       Properties:
-        BucketName: iopipe-workshop-doge-1
+        BucketName: CMPE-272-doge-1
