@@ -11,53 +11,15 @@
 #
 # Happy Coding!
 
-service: CMPE272-hw4-doge-1 # NOTE: update this with your service name
-
+service: my-discord-bot
+plugins:
+  - serverless-offline
 provider:
   name: aws
-  region: us-west-1
-  runtime: nodejs4.3
+  runtime: nodejs18.x
   environment:
-    DISCORD_BOT_TOKEN: 'NEW-TOKEN-HERE' # NOTE: update this with your discord bot token
-
-  # iamRoleStatements:
-  #     -  Effect: "Allow"
-  #        Action:
-  #          - "s3:ListBucket"
-  #        Resource: { "Fn::Join" : ["", ["arn:aws:s3:::", { "Ref" : "iopipe-workshop-doge-1"} ] ] }
-  #     -  Effect: "Allow"
-  #        Action:
-  #          - "s3:PutObject"
-  #        Resource:
-  #          Fn::Join:
-  #            - ""
-  #            - - "arn:aws:s3:::"
-  #              - "Ref" : "iopipe-workshop-doge-1"
-
-#package:
-#  include:
-#   - functions
-
+    DISCORD_BOT_TOKEN: MTE2NTczMzc1MzY3OTc5MDE0MA.Guwl6K.xVLxx4PJdnMrZ5DJ5sFq3UmUsjLKD-YecTHstM
 functions:
-  create:
-    handler: bot.handler
-    memorySize: 128
-    timeout: 30
-
-#   you can add any of the following events
-#   events:
-#     - http:
-#         path: users/create
-#         method: get
-#     - s3: ${bucket}
-#     - schedule: rate(10 minutes)
-#     - sns: greeter-topic
-
-# you can add CloudFormation resource templates here
-resources:
-  Resources:
-    newResource:
-      Type: AWS::S3::Bucket
-      Properties:
-        BucketName: CMPE-272-doge-1
-
+  bot:
+    handler: bot.bot
+    timeout: 300

@@ -1,45 +1,30 @@
-const Discord = require('discord.js');
-const client = new Discord.Client();
-const AWS = require('aws-sdk');
+const { Client, GatewayIntentBits, Intents, InteractionResponseType, REST, Routes, MessageActionRow, MessageButton } = require('discord.js');
 
 
-const botToken = process.env.DISCORD_BOT_TOKEN;
 
-// AWS Lambda setup
-const lambda = new AWS.Lambda();
+module.exports.bot = (event, context) => {
+	console.log("Here1")
+	const client = new Client({ 
+	  intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES]
+	});
+	console.log("Here2")
+	client.on('ready', () => {
+	  console.log(`Logged in as ${client.user.tag}`);
+	});
 
-client.on('ready', () => {
-    console.log(`Logged in as ${client.user.tag}`);
-});
-
-client.on('message', async (message) => {
-    if (message.content.startsWith('!generate-doge')) {
-        // Extract text from the message content
-        const text = message.content.substring('!generate-doge'.length).trim();
-
-        // Prepare the payload for your Lambda function
-        const params = {
-            FunctionName: 'YOUR_LAMBDA_FUNCTION_NAME', // Replace with your Lambda function's name or ARN
-            InvocationType: 'RequestResponse',
-            Payload: JSON.stringify({
-                queryStringParameters: {
-                    text: text,
-                },
-            }),
-        };
-
-        try {
-            // Invoke the Lambda function
-            const result = await lambda.invoke(params).promise();
-            const response = JSON.parse(result.Payload);
-
-            // Send the response to the Discord channel
-            message.channel.send(response.text);
-        } catch (error) {
-            console.error('Error generating Doge meme:', error);
-        }
-    }
-});
-
-// Log in to Discord
-client.login(botToken);
+	client.on('messageCreate', (message) => {
+	  if (message.content === '!hello') {
+	    message.reply('Hello!');
+	  } else if (message.content === '!quote') {
+	    message.reply('Learn from yesterday, live for today, hope for tomorrow - Albert Einstein');
+	  } else if (message.content === '!joke') {
+	    message.reply('I was going to tell you a joke about boxing but I forgot the punch line.');
+	  } else if (message.content === '!fact') {
+	    message.reply('Sloths can hold their breath longer than dolphins.');
+	  } else if (message.content === '!references') {
+	    message.reply('https://www.funkidslive.com/learn/top-10-facts/top-10-weirdest-facts, \nhttps://www.countryliving.com/life/entertainment/a36178514/hilariously-funny-jokes');
+	  }
+	});
+	console.log(process.env.DISCORD_BOT_TOKEN)
+	client.login(process.env.DISCORD_BOT_TOKEN);
+}
