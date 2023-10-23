@@ -1,12 +1,6 @@
-# Serverless Development Workshop
+# Serverless Development
 
-In this workshop, we'll deploy a simple serverless application which generates Doge meme images,
-randomly choosing colors and locations of text, writing an image into an S3 bucket.
-
-This will create an API that can be used by web services or users to generate doge images,
-while consuming no dedicated or long-lived resources besides space on S3.
-
-![Doge image](https://s3.amazonaws.com/iopipe-workshop-doge-2/doge-996.jpg)
+Deploy a chatbot with discord
 
 
 # Preparation:
@@ -45,23 +39,10 @@ We've prepared an example project for you to test!
 
 Checkout this repo:
 
-```
-$ git clone https://github.com/iopipe/lambda-workshop
-```
-
 ## Install npm modules
 
 ```
 $ npm install
-```
-
-## Re-name the project!
-
-Edit `serverless.yml` and `doge.js` to change `iopipe-workshop-doge-1` to a unique name.
-
-```
-$ sed -i "s/iopipe-workshop-doge-1/iopipe-workshop-doge-$(($RANDOM*$RANDOM))/g" doge.js serverless.yml
-# On OS X: sed -i "" -e "s/iopipe-workshop-doge-1/iopipe-workshop-doge-$(($RANDOM*$RANDOM))/g" doge.js serverless.yml
 ```
 
 ## Deploy the app:
@@ -70,70 +51,15 @@ $ sed -i "s/iopipe-workshop-doge-1/iopipe-workshop-doge-$(($RANDOM*$RANDOM))/g" 
 $ serverless deploy
 ```
 
-## Configure the IAM policy for the function:
-
-This function uploads files into Amazon S3. To accomplish this, the Lambda function must
-be granted permission to the S3 bucket.
-
-- Go into the IAM policy editor, click `Roles`.
-- Select the role which looks like, `iopipe-workshop-doge-1-dev-IamRoleLambda-`
-- Click `Attach Policy` and select `AmazonS3FullAccess`.
-
 ## Execute the lambda function:
 
 ```
 $ serverless invoke --function create -p event.json
 ```
 
-A URL should be printed to your console. Visit this in your browser. Edit event.json to change the
-text overlaid onto the image.
-
-Edit the code and do fun things!
-
-# IOpipe account
-
-While not critical for a doge-text app, more serious applications, including
-ChatBots, Voice assistents, production web services, etc. will benefit from
-Application Performance Monitoring & Management (APM).
-
-IOpipe is offering free beta access to an APM service designed specifically
-for serverless applications.
-
-* `npm install --save iopipe`
-* Import & configure the module:
-
-```
-/* Get client-id token from https://dashboard.iopipe.com */
-var iopipe = require("iopipe")({ clientId: "my-client-id-here" })
-```
-
-* Modify the handler, wrapping the function declaration with iopipe(). Make sure to close the parens by placing a `)` character after the final `}` character.
-
-```
-module.exports.create = iopipe((event, context, cb) => {
-  ...
-})
-```
-
-* Redeploy: `serverless deploy`
-* Invoke function: `serverless invoke --function create -p event.json`
-* Check [dashboard](https://dashboard.iopipe.com)
-
-# Extra homework!
-
-This is actually a functioning Slackbot! If you have admin permission on a Slack, you can add this as a /doge slash command!
-
-- Visit [Custom Integrations](https://iopipe.slack.com/apps/manage/custom-integrations), choose 'Slash Commands', then 'Add Configuration'.
-- Specify the command `/doge` and click, `Add Integration`.
-- Provide the URL given by `serverless deploy`
-- Specify `GET` as the HTTP method.
-- Click `Save Integration`
-
-Now you can type `/doge this text gets printed onto your doge!`
-
 # Delete resources
 
-We have created various resources during this course. You may, of course, keep these applications and resources deployed, but you may incur small fees from Amazon in doing so. Make sure to delete all AWS Lambda functions, S3 objects, S3 buckets, and other resources created during this course using your AWS console. If in doubt, check the Billing "Service" in your AWS Console.
+We have created various resources. You may, of course, keep these applications and resources deployed, but you may incur small fees from Amazon in doing so. Make sure to delete all AWS Lambda functions, S3 objects, S3 buckets, and other resources created during this course using your AWS console. If in doubt, check the Billing "Service" in your AWS Console.
 
 Resources will have been created under IAM roles, Lambda functions, S3 buckets, API Gateway, and Cloudformation. Simply deleting the cloud formation resources is usually enough, but again, double-check!
 
